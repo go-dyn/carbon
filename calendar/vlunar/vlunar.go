@@ -19,9 +19,9 @@ type Festival struct {
 }
 
 type LuckyHour struct {
-	Chi  string
-	From int
-	To   int
+	Animal string
+	From   int
+	To     int
 }
 
 type SolarTerm struct {
@@ -217,6 +217,11 @@ func NewLunar(year, month, day, hour, minute, second int, isLeapMonth bool) (l L
 // ToLunar Convert Gregorian calendar into Vietnamese Lunar calendar
 // 将 公历 转化为 农历
 func (g Gregorian) ToLunar() (l Lunar) {
+	if g.Error != nil {
+		l.Error = g.Error
+		return l
+	}
+
 	l.isLeapYear, l.leapMonth = 0, 0
 	name, offset := g.Time.Zone()
 	l.timeZone = offset / 3600
@@ -238,18 +243,31 @@ func (l Lunar) ToGregorian() (g Gregorian) {
 	return g
 }
 
+func (l Lunar) IsError() bool {
+	return l.Error != nil
+}
+
 func (l Lunar) YearHeavenStem() string {
+	if l.IsError() {
+		return ""
+	}
 	return heavenStem[(l.year+6)%10]
 }
 
 // Animal gets lunar animal name like "Tý".
 func (l Lunar) Animal() string {
+	if l.IsError() {
+		return ""
+	}
 	return lunarTimes[(l.year+8)%calendar.MonthsPerYear]
 }
 
 // Festival gets lunar festival name like "Trung thu".
 func (l Lunar) Festivals() (events []Festival) {
 	events = []Festival{}
+	if l.IsError() {
+		return
+	}
 	month, day := l.month, l.day
 
 	for i := 0; i < len(festivals); i++ {
@@ -263,11 +281,17 @@ func (l Lunar) Festivals() (events []Festival) {
 }
 
 func (l Lunar) SolarTerm() SolarTerm {
+	if l.IsError() {
+		return SolarTerm{}
+	}
 	solarTerm := getSolarTerm(l.juliusDay+1, 7.0)
 	return solarTerms[solarTerm]
 }
 
 func (l Lunar) LuckyHour() string {
+	if l.IsError() {
+		return ""
+	}
 	chiOfDay := (l.juliusDay + 1) % calendar.MonthsPerYear
 	luckyHour := luckyHours[chiOfDay%6]
 
@@ -276,14 +300,17 @@ func (l Lunar) LuckyHour() string {
 
 func (l Lunar) LuckyHours() (ret []LuckyHour) {
 	ret = []LuckyHour{}
+	if l.IsError() {
+		return
+	}
 	luckyHour := l.LuckyHour()
 	for i := 0; i < calendar.MonthsPerYear; i++ {
 		index := luckyHour[i]
 		if index == '1' {
 			detail := LuckyHour{
-				Chi:  lunarTimes[i],
-				From: (i*2 + 23) % 24,
-				To:   (i*2 + 1) % 24,
+				Animal: lunarTimes[i],
+				From:   (i*2 + 23) % 24,
+				To:     (i*2 + 1) % 24,
 			}
 			ret = append(ret, detail)
 		}
@@ -317,10 +344,16 @@ func (l Lunar) Month() int {
 }
 
 func (l Lunar) MonthHeavenStem() string {
+	if l.IsError() {
+		return ""
+	}
 	return heavenStem[((l.year*calendar.MonthsPerYear)+l.month+3)%10]
 }
 
 func (l Lunar) MonthAnimal() string {
+	if l.IsError() {
+		return ""
+	}
 	return lunarTimes[(l.month+1)%calendar.MonthsPerYear]
 }
 
@@ -335,38 +368,59 @@ func (l Lunar) Day() int {
 }
 
 func (l Lunar) DayHeavenStem() string {
+	if l.IsError() {
+		return ""
+	}
 	return heavenStem[(l.juliusDay+9)%10]
 }
 
 func (l Lunar) DayAnimal() string {
+	if l.IsError() {
+		return ""
+	}
 	return lunarTimes[(l.juliusDay+1)%calendar.MonthsPerYear]
 }
 
 // ToYearString outputs a string in lunar year format like "Giáp Tý".
 func (l Lunar) ToYearString() string {
+	if l.IsError() {
+		return ""
+	}
 	year := fmt.Sprintf("%s %s", l.YearHeavenStem(), l.Animal())
 	return year
 }
 
 // ToMonthString outputs a string in lunar month format like "Giáp Tý".
 func (l Lunar) ToMonthString() string {
+	if l.IsError() {
+		return ""
+	}
 	month := fmt.Sprintf("%s %s", l.MonthHeavenStem(), l.MonthAnimal())
 	return month
 }
 
 // ToDayString outputs a string in lunar day format like "Giáp Tý".
 func (l Lunar) ToDayString() (day string) {
+	if l.IsError() {
+		return ""
+	}
 	day = fmt.Sprintf("%s %s", l.DayHeavenStem(), l.DayAnimal())
 	return
 }
 
 // ToDateString outputs a string in lunar date format like "Ngày 16 tháng 9 năm 2020".
 func (l Lunar) ToDateString() string {
+	if l.IsError() {
+		return ""
+	}
 	return fmt.Sprintf("Ngày %02d tháng %02d năm %d", l.day, l.month, l.year)
 }
 
 // String outputs a string in YYYY-MM-DD HH::ii::ss format, implement Stringer interface.
 func (l Lunar) String() string {
+	if l.IsError() {
+		return ""
+	}
 	return fmt.Sprintf("%d-%02d-%02d %02d:%02d:%02d", l.year, l.month, l.day, l.hour, l.minute, l.second)
 }
 
