@@ -343,31 +343,31 @@ func TestLunar_LuckyHours(t *testing.T) {
 	}{
 		{
 			args: args{NewGregorian(time.Date(2025, 3, 2, 0, 0, 0, 0, time.Local))},
-			want: []LuckyHour{{Chi: "Tý", From: 23, To: 1}, {Chi: "Sửu", From: 1, To: 3}, {Chi: "Mão", From: 5, To: 7}, {Chi: "Ngọ", From: 11, To: 13}, {Chi: "Thân", From: 15, To: 17}, {Chi: "Dậu", From: 17, To: 19}},
+			want: []LuckyHour{{Animal: "Tý", From: 23, To: 1}, {Animal: "Sửu", From: 1, To: 3}, {Animal: "Mão", From: 5, To: 7}, {Animal: "Ngọ", From: 11, To: 13}, {Animal: "Thân", From: 15, To: 17}, {Animal: "Dậu", From: 17, To: 19}},
 		},
 		{
 			args: args{NewGregorian(time.Date(2025, 3, 3, 0, 0, 0, 0, time.Local))},
-			want: []LuckyHour{{Chi: "Dần", From: 3, To: 5}, {Chi: "Mão", From: 5, To: 7}, {Chi: "Tỵ", From: 9, To: 11}, {Chi: "Thân", From: 15, To: 17}, {Chi: "Tuất", From: 19, To: 21}, {Chi: "Hợi", From: 21, To: 23}},
+			want: []LuckyHour{{Animal: "Dần", From: 3, To: 5}, {Animal: "Mão", From: 5, To: 7}, {Animal: "Tỵ", From: 9, To: 11}, {Animal: "Thân", From: 15, To: 17}, {Animal: "Tuất", From: 19, To: 21}, {Animal: "Hợi", From: 21, To: 23}},
 		},
 		{
 			args: args{NewGregorian(time.Date(2025, 3, 4, 0, 0, 0, 0, time.Local))},
-			want: []LuckyHour{{Chi: "Tý", From: 23, To: 1}, {Chi: "Sửu", From: 1, To: 3}, {Chi: "Thìn", From: 7, To: 9}, {Chi: "Tỵ", From: 9, To: 11}, {Chi: "Mùi", From: 13, To: 15}, {Chi: "Tuất", From: 19, To: 21}},
+			want: []LuckyHour{{Animal: "Tý", From: 23, To: 1}, {Animal: "Sửu", From: 1, To: 3}, {Animal: "Thìn", From: 7, To: 9}, {Animal: "Tỵ", From: 9, To: 11}, {Animal: "Mùi", From: 13, To: 15}, {Animal: "Tuất", From: 19, To: 21}},
 		},
 		{
 			args: args{NewGregorian(time.Date(2025, 3, 5, 0, 0, 0, 0, time.Local))},
-			want: []LuckyHour{{Chi: "Tý", From: 23, To: 1}, {Chi: "Dần", From: 3, To: 5}, {Chi: "Mão", From: 5, To: 7}, {Chi: "Ngọ", From: 11, To: 13}, {Chi: "Mùi", From: 13, To: 15}, {Chi: "Dậu", From: 17, To: 19}},
+			want: []LuckyHour{{Animal: "Tý", From: 23, To: 1}, {Animal: "Dần", From: 3, To: 5}, {Animal: "Mão", From: 5, To: 7}, {Animal: "Ngọ", From: 11, To: 13}, {Animal: "Mùi", From: 13, To: 15}, {Animal: "Dậu", From: 17, To: 19}},
 		},
 		{
 			args: args{NewGregorian(time.Date(2025, 3, 6, 0, 0, 0, 0, time.Local))},
-			want: []LuckyHour{{Chi: "Dần", From: 3, To: 5}, {Chi: "Thìn", From: 7, To: 9}, {Chi: "Tỵ", From: 9, To: 11}, {Chi: "Thân", From: 15, To: 17}, {Chi: "Dậu", From: 17, To: 19}, {Chi: "Hợi", From: 21, To: 23}},
+			want: []LuckyHour{{Animal: "Dần", From: 3, To: 5}, {Animal: "Thìn", From: 7, To: 9}, {Animal: "Tỵ", From: 9, To: 11}, {Animal: "Thân", From: 15, To: 17}, {Animal: "Dậu", From: 17, To: 19}, {Animal: "Hợi", From: 21, To: 23}},
 		},
 		{
 			args: args{NewGregorian(time.Date(2025, 3, 7, 0, 0, 0, 0, time.Local))},
-			want: []LuckyHour{{Chi: "Sửu", From: 1, To: 3}, {Chi: "Thìn", From: 7, To: 9}, {Chi: "Ngọ", From: 11, To: 13}, {Chi: "Mùi", From: 13, To: 15}, {Chi: "Tuất", From: 19, To: 21}, {Chi: "Hợi", From: 21, To: 23}},
+			want: []LuckyHour{{Animal: "Sửu", From: 1, To: 3}, {Animal: "Thìn", From: 7, To: 9}, {Animal: "Ngọ", From: 11, To: 13}, {Animal: "Mùi", From: 13, To: 15}, {Animal: "Tuất", From: 19, To: 21}, {Animal: "Hợi", From: 21, To: 23}},
 		},
 		{
 			args: args{NewGregorian(time.Date(2020, 5, 1, 0, 0, 0, 0, time.Local))},
-			want: []LuckyHour{{Chi: "Dần", From: 3, To: 5}, {Chi: "Thìn", From: 7, To: 9}, {Chi: "Tỵ", From: 9, To: 11}, {Chi: "Thân", From: 15, To: 17}, {Chi: "Dậu", From: 17, To: 19}, {Chi: "Hợi", From: 21, To: 23}},
+			want: []LuckyHour{{Animal: "Dần", From: 3, To: 5}, {Animal: "Thìn", From: 7, To: 9}, {Animal: "Tỵ", From: 9, To: 11}, {Animal: "Thân", From: 15, To: 17}, {Animal: "Dậu", From: 17, To: 19}, {Animal: "Hợi", From: 21, To: 23}},
 		},
 	}
 	for index, tt := range tests {

@@ -29,7 +29,7 @@ carbon.Parse("2024-01-25 13:14:15").VLunar().Animal() // Mão
 carbon.Parse("2021-02-12 13:14:15").VLunar().Festivals() // []{{Day: 1, Month: 1, Name: "Tết Nguyên Đán"}}
 
 // Get lunar luck hours
-carbon.Parse("2020-05-01 13:14:15").VLunar().LuckyHours() // []{{Chi: "Dần", From: 3, To: 5}, {Chi: "Thìn", From: 7, To: 9}, {Chi: "Tỵ", From: 9, To: 11}, {Chi: "Thân", From: 15, To: 17}, {Chi: "Dậu", From: 17, To: 19}, {Chi: "Hợi", From: 21, To: 23}},
+carbon.Parse("2020-05-01 13:14:15").VLunar().LuckyHours() // []{{Animal: "Dần", From: 3, To: 5}, {Animal: "Thìn", From: 7, To: 9}, {Animal: "Tỵ", From: 9, To: 11}, {Animal: "Thân", From: 15, To: 17}, {Animal: "Dậu", From: 17, To: 19}, {Animal: "Hợi", From: 21, To: 23}},
 
 // Get lunar solar term
 carbon.Parse("2025-03-10 13:14:15").VLunar().SolarTerm() // {Longitude: 345, Name: "Kinh trập"}
