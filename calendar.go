@@ -4,6 +4,7 @@ import (
 	"github.com/golang-module/carbon/v2/calendar/julian"
 	"github.com/golang-module/carbon/v2/calendar/lunar"
 	"github.com/golang-module/carbon/v2/calendar/persian"
+	"github.com/golang-module/carbon/v2/calendar/vlunar"
 )
 
 // Lunar converts Carbon instance to Lunar instance.
@@ -52,5 +53,19 @@ func (c Carbon) Persian() (p persian.Persian) {
 // 从 波斯日期 创建 Carbon 实例
 func CreateFromPersian(year, month, day, hour, minute, second int) Carbon {
 	t := persian.FromPersian(year, month, day, hour, minute, second).ToGregorian().Time
+	return CreateFromStdTime(t)
+}
+
+// VLunar converts Carbon instance to Vietnamese Lunar instance.
+func (c Carbon) VLunar() (l vlunar.Lunar) {
+	if c.Error != nil {
+		return l
+	}
+	return vlunar.FromGregorian(c.StdTime()).ToLunar()
+}
+
+// CreateFromVLunar creates a Carbon instance from Vietnamese Lunar date and time.
+func CreateFromVLunar(year, month, day, hour, minute, second int, isLeapMonth bool) Carbon {
+	t := vlunar.FromLunar(year, month, day, hour, minute, second, isLeapMonth).ToGregorian().Time
 	return CreateFromStdTime(t)
 }

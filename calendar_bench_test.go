@@ -40,3 +40,16 @@ func BenchmarkCarbon_CreateFromPersian(b *testing.B) {
 		CreateFromPersian(1455, 1, 1, 0, 0, 0)
 	}
 }
+
+func BenchmarkCarbon_VLunar(b *testing.B) {
+	now := Now()
+	for n := 0; n < b.N; n++ {
+		now.VLunar()
+	}
+}
+
+func BenchmarkCarbon_CreateFromVLunar(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		CreateFromVLunar(2023, 12, 8, 0, 0, 0, false)
+	}
+}
